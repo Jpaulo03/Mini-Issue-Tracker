@@ -1,4 +1,4 @@
-const { Ticket, Proyecto } = require("../models");
+const { Ticket, Proyecto, Usuario } = require("../models");
 const Joi = require('joi');
 
 exports.postCreate = async (req, res) => {
@@ -6,14 +6,23 @@ exports.postCreate = async (req, res) => {
         titulo: Joi.string().min(3).required(),
         descripcion: Joi.string().allow(''),
         proyectoId: Joi.number().required(),
-        asignadoId: Joi.number().allow(null)
+        emailAsignado: Joi.string().email().allow(null, '') 
     });
 
     const { error } = schema.validate(req.body);
     if (error) return res.status(400).json({ message: error.details[0].message });
 
     try {
-        const { titulo, descripcion, proyectoId, asignadoId } = req.body;
+        const { titulo, descripcion, proyectoId, emailAsignado } = req.body;
+        let asignadoId = null;
+
+        if (emailAsignado) {
+            const usuario = await Usuario.findOne({ where: { email: emailAsignado } });
+            if (!usuario) {
+                return res.status(404).json({ message: "No se encontró ningún usuario con ese correo electrónico." });
+            }
+            asignadoId = usuario.id;
+        }
         
         const nuevoTicket = await Ticket.create({
             titulo,
