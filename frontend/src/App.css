@@ -5,8 +5,8 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #f4f6f8;
-  color: #1f2937;
+  background: #5b70a9;
+  color: #FFFFFF;
 }
 
 a {
@@ -16,7 +16,7 @@ a {
 
 button {
   border: none;
-  background: #2563eb;
+  background: #023ec0;
   color: white;
   padding: 10px 14px;
   border-radius: 8px;
@@ -30,8 +30,8 @@ button:hover {
 
 input {
   padding: 10px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border: 1px solid #FFFFFF;
+  border-radius: 6px;
   outline: none;
 }
 
@@ -48,7 +48,7 @@ input:focus {
 }
 
 .card {
-  background: white;
+  background: #0c1531;
   padding: 20px;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
@@ -99,7 +99,7 @@ input:focus {
 }
 
 .column {
-  background: #e5e7eb;
+  background: #0c1531;
   padding: 14px;
   border-radius: 14px;
   min-height: 400px;
@@ -110,7 +110,7 @@ input:focus {
 }
 
 .ticket {
-  background: white;
+  background: #5b70a9;
   padding: 14px;
   border-radius: 12px;
   margin-bottom: 12px;
@@ -139,7 +139,7 @@ input:focus {
 
 .error {
   background: #fee2e2;
-  color: #991b1b;
+  color: #FF0000;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 12px;

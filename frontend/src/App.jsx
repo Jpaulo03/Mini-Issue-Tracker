@@ -20,10 +20,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Register />} />
-
         <Route
           path="/proyectos"
           element={
@@ -32,7 +30,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/proyectos/:id/tablero"
           element={
