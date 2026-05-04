@@ -4,12 +4,14 @@
   "description": "Backend del practico 2 de Web II",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "dev": "node index.js"
   },
   "author": "Samir Toledo & Daniel Morales",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "joi": "^18.1.2",
