@@ -1,8 +1,19 @@
 const { Proyecto } = require("../models");
+const Joi = require('joi');
 
 exports.postCreate = async (req, res) => {
+
+    const schema = Joi.object({
+        nombre: Joi.string().min(3).required(),
+        descripcion: Joi.string().allow('')
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+    }
+
     const { nombre, descripcion } = req.body;
-    
     const duenoId = req.user.id;
 
     try {

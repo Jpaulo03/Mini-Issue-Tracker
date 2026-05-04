@@ -4,6 +4,7 @@ const ticketController = require("../controllers/ticket.controller");
 const authMiddleware = require("../middlewares/auth.middleware");
 
 module.exports = (app) => {
+  //rutas para login y autenticacion
   app.post("/api/auth/register", authController.postRegister);
   app.post("/api/auth/login", authController.postLogin);
 
