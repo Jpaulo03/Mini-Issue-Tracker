@@ -11,7 +11,7 @@ function Board() {
   const [form, setForm] = useState({
     titulo: "",
     descripcion: "",
-    asignadoId: "",
+    emailAsignado: "",
   });
 
   const [error, setError] = useState("");
@@ -43,18 +43,18 @@ function Board() {
 
     try {
       const payload = {
-        titulo: form.titulo,
-        descripcion: form.descripcion,
-        proyectoId: Number(id),
-        asignadoId: form.asignadoId ? Number(form.asignadoId) : null,
-      };
+      titulo: form.titulo,
+      descripcion: form.descripcion,
+      proyectoId: Number(id),
+      emailAsignado: form.emailAsignado,
+    };
 
       await api.post("/tickets", payload);
 
       setForm({
         titulo: "",
         descripcion: "",
-        asignadoId: "",
+        emailAsignado: "",
       });
 
       const response = await api.get(`/proyectos/${id}`);
@@ -123,10 +123,10 @@ function Board() {
         />
 
         <input
-          name="asignadoId"
-          type="number"
-          placeholder="ID responsable"
-          value={form.asignadoId}
+          name="emailAsignado"
+          type="email"
+          placeholder="Correo del responsable"
+          value={form.emailAsignado}
           onChange={handleChange}
         />
 
@@ -147,7 +147,11 @@ function Board() {
                 return (
                   <div className="ticket" key={ticket.id}>
                     <h3>{ticket.titulo}</h3>
-                    <p>{ticket.descripcion}</p>
+                    <p>{ticket.responsable
+                      ? `${ticket.responsable.nombre} (${ticket.responsable.email})`
+                      : ticket.asignadoId
+                        ? `Usuario ID: ${ticket.asignadoId}`
+                        : "Sin asignar"}</p>
                     <small>ID: {ticket.id}</small>
 
                     <div className="actions">

@@ -1,8 +1,19 @@
 const { Proyecto } = require("../models");
+const Joi = require('joi');
 
 exports.postCreate = async (req, res) => {
+
+    const schema = Joi.object({
+        nombre: Joi.string().min(3).required(),
+        descripcion: Joi.string().allow('')
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+    }
+
     const { nombre, descripcion } = req.body;
-    
     const duenoId = req.user.id;
 
     try {
@@ -32,12 +43,26 @@ exports.getDetail = async (req, res) => {
     try {
         const proyecto = await Proyecto.findOne({
             where: { id: req.params.id, duenoId: req.user.id },
-            include: ["tickets"] 
+            include: [
+                {
+                    association: "tickets",
+                    include: [
+                        {
+                            association: "responsable",
+                            attributes: ["id", "nombre", "email"]
+                        }
+                    ]
+                }
+            ]
         });
-        if (!proyecto) return res.status(404).json({ message: "Proyecto no encontrado" });
+
+        if (!proyecto) {
+            return res.status(404).json({ message: "Proyecto no encontrado" });
+        }
+
         res.status(200).json(proyecto);
     } catch (error) {
-        res.status(500).json({ message: "Error al obtener el detalle" });
+        res.status(500).json({ message: "Error al obtener el detalle", error: error.message });
     }
 };
 
